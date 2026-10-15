@@ -27,9 +27,9 @@ Goals: Install and run an SLM locally. Give the SLM agentic capabilities relevan
   * Retrieve the latest entry from local TinyDB
 * Oct 8: implemented conversation loop and deterministic user-input checking to ensure correct tool calling
   * This resolves an issue where the SLM would repeat previous tool results or confuse which tool should be called as the conversation continued, without compromising multi-tool requests
-* Oct 15: implement camera tools for still images and video recordings. Updated TinyDB database to have separate tables for sensor data and camera records
+* Oct 15: implement camera tools for still images and video recordings. Updated TinyDB database to have separate tables for sensor data and camera records. Created GitHub repo for access beyond the Pi
 ### To Do:
-* Update cam tools for delivery to agent in agent.py
+* Update cam tools for delivery to agent in agent.py, test cam tool calling
 * Expand toolset upload data to AWS DynamoDB
 * Actuator: send an alert (via email?) following maybe facial recognition or other sensor breakpoint
   * Give agent tools to actuate after making a decision
