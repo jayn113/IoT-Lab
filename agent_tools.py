@@ -40,7 +40,16 @@ def get_sensor_status():
 
 def read_light_sensor():
     red, green, blue, clear = sensor.get_rgbc_raw()
-
+    
+    sensor_db.insert({
+		"SENSOR"	: "BH1745",
+		"TIMESTAMP" : datetime.now().isoformat(),
+		"RED" 		: red,
+		"GREEN"		: green,
+		"BLUE"		: blue,
+		"CLEAR"		: clear
+	})
+	
     return {
         "SOURCE": "LIVE SENSOR",
         "TIMESTAMP": datetime.now().isoformat(),
