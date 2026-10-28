@@ -41,7 +41,8 @@ def latest_sensor_reading() -> str:
     It does NOT access the BH1745 sensor and does NOT produce a new measurement.
 
     Returns:
-            The most recently stored sensor reading and its timestamp
+            Previously measured Red, Green, Blue and Clear values 
+            along with their timestamp
     """
 
     return get_latest_sensor_reading()
@@ -122,7 +123,10 @@ Rules:
  - For current, live, or up-to-date sensor values, call read_light.
  - For the latest stored or previously recorded sensor measurement, call latest_reading.
  - Never treat a stored measurement as a new live measurement.
- - When asked to capture an image or record a video, call the corresponding camera tool.
+ - When asked to take a picture, call capture_image exactly once.
+ - When asked to record a video, call record_video exactly once.
+ - Assume one image or video unless the user explicitly requests multiple.
+ - Do not repeat a camera tool call for the same request.
  - Never claim a tool operation succeeded unless the tool confirms success.
  - Never invent sensor readings or claim an image or video was captured without tool confirmation.
  - Include timestamps when available.
@@ -146,8 +150,8 @@ current_words = (
     "current", "currently", "right now", "live", "present", "up-to-date", "up to date"
 )
 
-sensor_words = ("sensor", "BH1745", "light", "luminance", "color")
-camera_words = ("camera", "camera module",
+sensor_words = ("sensor", "BH1745", "light", "luminance", "color", "sensor's")
+camera_words = ("camera", "camera module", "cam",
                 "Raspberry Pi Camera Module 3", "Camera Module 3")
 
 comparison_words = (
@@ -156,7 +160,8 @@ comparison_words = (
 
 database_words = (
     "latest stored", "stored reading", "database", "previous reading",
-    "last reading", "previous measurement", "last measurement"
+    "last reading", "previous measurement", "last measurement", 
+    "last entry", "latest entry"
 )
 
 
