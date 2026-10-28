@@ -29,10 +29,9 @@ Goals: Install and run an SLM locally. Give the SLM agentic capabilities relevan
   * This resolves an issue where the SLM would repeat previous tool results or confuse which tool should be called as the conversation continued, without compromising multi-tool requests
 * Oct 15: implement camera tools for still images and video recordings. Updated TinyDB database to have separate tables for sensor data and camera records. Created GitHub repo for access beyond the Pi
 * Oct 22: Integrated camera tool calls into agent, added camera_db retrieval tool, updated deterministic tool call checks to include and integrate database retrieval and distinguish from camera calls
+* Oct 28: tested camera and database tools, optimized rules for more consistent responses and tool calls. Set up Raspberry Pi Connect for remote access (without peripherals)
 ### To Do:
-* Test cam tool calling and database tools
 * Expand toolset upload data to AWS DynamoDB
-* Set up Raspberry Pi Connect for remote access over a network using a laptop
 * Actuator: send an alert (via email?) following maybe facial recognition or other sensor breakpoint
   * Give agent tools to actuate after making a decision
 
@@ -47,3 +46,4 @@ Operate a ML algo on the Pi
 * install a face recognition ML algo
 * OpenCV for open-source algos or ask Chat for open-src algos for small footprint
 
+https://www.cytron.io/tutorial/face-detection-on-raspberry-pi5-using-opencv-and-camera-module
