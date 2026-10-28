@@ -5,9 +5,7 @@ Data acquired from the sensors is timestamped and stored into a local TinyDB, wh
 Liquid AI's LFM2.5-350M small language model (SLM) was used to build a conversational agent capable of calling tools to obtain the sensor's status, live measurements, and retrieve the latest entry from TinyDB.
 
 ## In Progress
-Camera tools: 
-* Timestamped still image capture and metadata upload to TinyDB
-* Timestamped 15-second video recording and metadata upload to TinyDB
+* N/A
 
 ## Planned Features
 * Tool to upload local TinyDB to DynamoDB using MQTT
