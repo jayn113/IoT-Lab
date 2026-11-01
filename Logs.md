@@ -3,21 +3,22 @@ Internet of Things Lab: EE/CE 4201 Electrical and Computer Engineering Laborator
 
 
 ## 1st Lab 
-(Rpi order delivered Sep 3): 
-Goals: Raspberry Pi setup, Rasbperry OS setup, connect to and test peripherals, sensors, camera
+(Rpi order delivered Sep 3):
+
+<ins>Goals</ins>: Raspberry Pi setup, Rasbperry OS setup, connect to and test peripherals, sensors, camera
 Sensors: BH1745 luminance and color sensor; Raspberry Pi Camera Module 3
 * Sep 8: Had trouble with my initial SD (32gb) card; every time RpiOS was flashed on it using Raspberry Pi Imager, it would fail to verify (contents were different than what was written)
 * Sep 9: Had to buy a new 64gb card which then worked, flasher worked on first try
   * All setup, sensor testing completed
 
 ## 2nd Lab
-Goals: Set up TinyDB, AWS account and DynamoDB set up; upload sensor data to local TinyDB and cloud DB using MQTT
+<ins>Goals</ins>: Set up TinyDB, AWS account and DynamoDB set up; upload sensor data to local TinyDB and cloud DB using MQTT
 * Sep 4: AWS account and DynamoDB set up by Will Arato
 * Sep 10: Set up and test TinyDB with sensor data
 * Sep 17: Set up data uploading to AWS DynamoDB using MQTT
 
 ## 3rd Lab
-Goals: Install and run an SLM locally. Give the SLM agentic capabilities relevant to the sensor setup and IoT.
+<ins>Goals</ins>: Install and run an SLM locally. Give the SLM agentic capabilities relevant to the sensor setup and IoT.
 * SLM qwen2.5 installed Sep 10 (no particular model installed yet
 * Sep 17: installed and ran qwn2.5.0.5b
 * Sep 24: Switched to US-made SLM— Liquid AI’s LFM2.5-350M
@@ -36,14 +37,8 @@ Goals: Install and run an SLM locally. Give the SLM agentic capabilities relevan
   * Give agent tools to actuate after making a decision
 
 ## 4th Lab
-Machine Learning 
-Tensor Flow LiteRT (Google) 
-Pytorch (deep learning framework to build & teach neural networks)
-* meant for small footprint computers (Pi5)
+<ins>Goals</ins>: Implement a facial recognition machine learning algorithm on the Raspberry Pi using the Camera Module 3
+* Nov 1: Referencing the tutorial link below, installed and used OpenCV libraries, tools, and training data implement facial detection with the camera. Required debugging and updating to use up-to-date libraries from those given in the tutorial. Facial detection program was tested successfully
 
-Operate a ML algo on the Pi
-* install LiteRT or PyTorch
-* install a face recognition ML algo
-* OpenCV for open-source algos or ask Chat for open-src algos for small footprint
+Reference: https://www.cytron.io/tutorial/face-detection-on-raspberry-pi5-using-opencv-and-camera-module
 
-https://www.cytron.io/tutorial/face-detection-on-raspberry-pi5-using-opencv-and-camera-module
