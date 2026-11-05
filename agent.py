@@ -65,7 +65,7 @@ def latest_camera_metadata() -> str:
 
 
 def capture_image() -> str:
-    """Capture a still image using the camera RIGHT NOW.
+    """Capture ONE still image using the camera RIGHT NOW.
 
     This uses the Raspberry Pi Camera Module 3 to capture a still image.
     It does NOT retrieve previous metadata from the database.
@@ -79,10 +79,10 @@ def capture_image() -> str:
 
 
 def record_video() -> str:
-    """Record a 15-second video segment using the camera RIGHT NOW.
+    """Record ONE 15-second video segment using the camera RIGHT NOW.
 
     This uses the Raspberry Pi Camera Module 3 to record a 15-second video segment.
-    It does NOT retrieve previous metadata from the database
+    It does NOT retrieve previous metadata from the database.
 
     Returns:
             The newly captured video's metadata: 
@@ -141,6 +141,7 @@ Tool selection:
  - upload_to_aws: Upload the local databases to AWS DynamoDB RIGHT NOW.
 
 Rules:
+ - Always verbally report every key-value pair returned by a tool call.
  - For current, live, or up-to-date sensor values, call read_light.
  - For the latest stored or previously recorded sensor measurement, call latest_reading.
  - For the latest stored camera metadata, call latest_camera_metadata.
@@ -182,9 +183,9 @@ comparison_words = (
 )
 
 database_words = (
-    "latest stored", "stored reading", "database", "previous reading",
-    "last reading", "previous measurement", "last measurement", 
-    "last entry", "latest entry"
+    "latest stored", "last stored", "stored reading", "database", 
+    "previous reading", "last reading", "previous measurement", 
+    "last measurement", "last entry", "latest entry"
 )
 
 
