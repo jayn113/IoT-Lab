@@ -31,8 +31,9 @@ Sensors: BH1745 luminance and color sensor; Raspberry Pi Camera Module 3
 * Oct 15: implement camera tools for still images and video recordings. Updated TinyDB database to have separate tables for sensor data and camera records. Created GitHub repo for access beyond the Pi
 * Oct 22: Integrated camera tool calls into agent, added camera_db retrieval tool, updated deterministic tool call checks to include and integrate database retrieval and distinguish from camera calls
 * Oct 28: tested camera and database tools, optimized rules for more consistent responses and tool calls. Set up Raspberry Pi Connect for remote access (without peripherals)
+* •	Nov 5: Wrote python files to upload local databases to AWS DynamoDB. Unfortunately, the AWS account was suspended due to inactivity, so a dry run tool was given to the agent, which was executed successfully
 ### To Do:
-* Expand toolset upload data to AWS DynamoDB
+* •	Test agent with live AWS upload once AWS account is reactivated
 * Actuator: send an alert (via email?) following maybe facial recognition or other sensor breakpoint
   * Give agent tools to actuate after making a decision
 
