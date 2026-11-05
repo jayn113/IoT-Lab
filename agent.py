@@ -8,27 +8,29 @@ from agent_tools import (
     cam_record_video
 )
 
+from agent_upload_to_aws_dry import upload_to_cloud # dry test
+
 
 # Define available tools
 def sensor_status() -> str:
     """Check the status of the BH1745 sensor.
 
     Returns:
-            The BH1745's current status and timestamp
+            The BH1745's current STATUS and TIMESTAMP
     """
 
     return get_sensor_status()
 
 
 def read_light():
-    """Read the BH1745 sensor hardware RIGHT NOW.
+    """Read the BH1745 sensor RIGHT NOW.
 
     This performs a new sensor measurement. It does NOT retrieve
     a previous measurement from the database.
 
     Returns:
-            The newly measured Red, Green, Blue and Clear values 
-            along with a measurement timestamp
+            The newly measured RED, GREEN, BLUE, and CLEAR values,
+            and TIMESTAMP
     """
 
     return read_light_sensor()
@@ -41,8 +43,8 @@ def latest_sensor_reading() -> str:
     It does NOT access the BH1745 sensor and does NOT produce a new measurement.
 
     Returns:
-            Previously measured Red, Green, Blue and Clear values 
-            along with their timestamp
+            DATABASE SOURCE, previously measured RED, GREEN, BLUE, 
+            and CLEAR values, and TIMESTAMP
     """
 
     return get_latest_sensor_reading()
@@ -55,8 +57,8 @@ def latest_camera_metadata() -> str:
     It does NOT access the camera and does NOT produce new metadata or media.
 
     Returns:
-            The metadata for the most recently stored image or video
-            including type, timestamp, and filename
+            DATABASE SOURCE and previously stored camera metadata:
+            DEVICE, TYPE, TIMESTAMP, and FILE_NAME
     """
 
     return get_latest_camera_metadata()
@@ -90,13 +92,30 @@ def record_video() -> str:
     return cam_record_video()
 
 
+# This is a dry run test. Update when uploading live to AWS
+def upload_to_aws() -> str:
+	"""Upload the local databases to the AWS DynamoDB cloud RIGHT NOW.
+	
+	This uploads the local sensor database (sensor_db) and 
+	camera metadata database (camera_db) to AWS DynamoDB (cloud).
+	It does NOT access the sensor or camera or produce new data.
+	
+	Returns:
+			UPLOAD STATUS, number of RECORDS_PREPARED, 
+			OUTPUT_FILE name, and TIMESTAMP
+	"""
+	
+	return upload_to_cloud(True)
+
+
 available_tools = {
     "sensor_status": sensor_status,
     "read_light": read_light,
     "latest_reading": latest_sensor_reading,
     "latest_camera_metadata": latest_camera_metadata,
     "capture_image": capture_image,
-    "record_video": record_video
+    "record_video": record_video,
+    "upload_to_aws": upload_to_aws
 }
 
 tools = list(available_tools.values())
@@ -115,14 +134,17 @@ Hardware:
 Tool selection:
  - sensor_status: Check if BH1745 sensor is online.
  - read_light: Obtain a NEW, live BH1745 sensor measurement.
- - latest_reading: Retrieve the most recent measurement stored in the database.
+ - latest_reading: Retrieve the most recent measurement stored in the sensor database.
+ - latest_camera_metadata: Retrieve the most recent camera metadata stored in the camera database.
  - capture_image: Capture a still image from the camera RIGHT NOW.
  - record_video: Record a 15-second video from the camera RIGHT NOW.
+ - upload_to_aws: Upload the local databases to AWS DynamoDB RIGHT NOW.
 
 Rules:
  - For current, live, or up-to-date sensor values, call read_light.
  - For the latest stored or previously recorded sensor measurement, call latest_reading.
- - Never treat a stored measurement as a new live measurement.
+ - For the latest stored camera metadata, call latest_camera_metadata.
+ - Never treat stored data as new, live data.
  - When asked to take a picture, call capture_image exactly once.
  - When asked to record a video, call record_video exactly once.
  - Assume one image or video unless the user explicitly requests multiple.
@@ -143,6 +165,7 @@ Rules:
 # ~ "How has the light level changed since the last measurement?"
 # ~ "Record a video."
 # ~ "Take a picture."
+# ~ "Upload the databases to AWS/cloud"
 
 
 # Set keywords for deterministic tool-calling
