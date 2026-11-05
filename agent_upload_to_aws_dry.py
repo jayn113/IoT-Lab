@@ -51,7 +51,7 @@ def upload_to_cloud(dry_run=True):
             "STATUS": "dry_run",
             "RECORDS_PREPARED": len(messages),
             "OUTPUT_FILE": str(OUTPUT_FILE),
-            "TIMESTAMP": datetime.now().isoformat()
+            "UPLOAD_TIMESTAMP": datetime.now().isoformat()
         }
 
     raise RuntimeError(
