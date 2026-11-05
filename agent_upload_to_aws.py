@@ -106,7 +106,7 @@ def upload_databases():
             "STATUS": "mqtt_published",
             "UPLOADED": uploaded,
             "SKIPPED": skipped,
-            "TIMESTAMP": datetime.now().isoformat()
+            "UPLOAD_TIMESTAMP": datetime.now().isoformat()
         }
 
     finally:
