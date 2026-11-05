@@ -56,7 +56,7 @@ def read_light_sensor():
         "RED": red,
         "GREEN": green,
         "BLUE": blue,
-        "CLEAR": clear
+        "CLEAR": clear,
         "TIMESTAMP": datetime.now().isoformat()
 
     }
