@@ -26,13 +26,13 @@ vid_config = picam2.create_video_configuration()
 def get_sensor_status():
     if sensor.ready():
         return {
-            "SENSOR": "BH1745",
+            "DEVICE": "BH1745",
             "STATUS": "online",
             "TIMESTAMP": datetime.now().isoformat()
         }
     else:
         return {
-            "SENSOR": "BH1745",
+            "DEVICE": "BH1745",
             "STATUS": "offline",
             "TIMESTAMP": datetime.now().isoformat()
         }
@@ -42,21 +42,23 @@ def read_light_sensor():
     red, green, blue, clear = sensor.get_rgbc_raw()
     
     sensor_db.insert({
-		"SENSOR"	: "BH1745",
-		"TIMESTAMP" : datetime.now().isoformat(),
+		"DEVICE"	: "BH1745",
 		"RED" 		: red,
 		"GREEN"		: green,
 		"BLUE"		: blue,
-		"CLEAR"		: clear
+		"CLEAR"		: clear,
+		"TIMESTAMP" : datetime.now().isoformat()
+
 	})
 	
     return {
-        "SOURCE": "LIVE SENSOR",
-        "TIMESTAMP": datetime.now().isoformat(),
+        "SOURCE": "LIVE BH1745",
         "RED": red,
         "GREEN": green,
         "BLUE": blue,
         "CLEAR": clear
+        "TIMESTAMP": datetime.now().isoformat()
+
     }
 
 
@@ -64,7 +66,7 @@ def get_latest_sensor_reading():
     records = sensor_db.all()
 
     if not records:
-        return {"ERROR": "No sensor readings found"}
+        return {"ERROR": "No sensor DATA found"}
 
     return "SOURCE: SENSOR DATABASE", records[-1]
 
@@ -95,14 +97,14 @@ def cam_capture_image():
         picam2.capture_file(filename)
 
         camera_db.insert({
-            "sensor": "CAMERA",
-            "type": "IMAGE",
-            "timestamp": timestamp,
-            "filename": filename
+            "DEVICE": "CAMERA",
+            "TYPE": "IMAGE",
+            "TIMESTAMP": timestamp,
+            "FILENAME": filename
         })
 
         return {
-            "SOURCE": "CAMERA",
+            "DEVICE": "CAMERA",
             "TYPE": "IMAGE",
             "TIMESTAMP": timestamp,
             "FILE_NAME": filename
@@ -139,15 +141,15 @@ def cam_record_video():
             picam2.stop_recording()
 
         camera_db.insert({
-            "sensor": "CAMERA",
-            "type": "VIDEO",
-            "timestamp": timestamp,
-            "duration_sec": SEGMENT_LENGTH,
-            "filename": filename
+            "DEVICE": "CAMERA",
+            "TYPE": "VIDEO",
+            "TIMESTAMP": timestamp,
+            "DURATION_SEC": SEGMENT_LENGTH,
+            "FILENAME": filename
         })
 
         return {
-            "SOURCE": "CAMERA",
+            "DEVICE": "CAMERA",
             "TYPE": "VIDEO",
             "TIMESTAMP": timestamp,
             "DURATION_SECONDS": SEGMENT_LENGTH,
