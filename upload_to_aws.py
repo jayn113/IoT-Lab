@@ -14,9 +14,9 @@ CLIENT_ID = "ee4201-raspberry-pi"
 
 TOPIC = "ee4201/sensors"
 
-CERTIFICATE = "certs/e5eee297c12f6abdf1622680a4de2be4cb250ad7a370938b97be2686fe087495-certificate.pem.crt"
+CERTIFICATE = "certs/6968cbdf94ae232878a26cbe2fe615498419429e23f002827f1e9c29ec838beb-certificate.pem.crt"
 
-PRIVATE_KEY = "certs/e5eee297c12f6abdf1622680a4de2be4cb250ad7a370938b97be2686fe087495-private.pem.key"
+PRIVATE_KEY = "certs/6968cbdf94ae232878a26cbe2fe615498419429e23f002827f1e9c29ec838beb-private.pem.key"
 
 ROOT_CA = "certs/AmazonRootCA1.pem"
 
