@@ -7,7 +7,7 @@ The agent is also capable of using the camera to capture still images and record
 Using OpenCV, the Raspberry Pi can also use the camera to detect faces and store their images to a directory.
 
 ## In Progress
-* Tool to upload local TinyDB to DynamoDB using MQTT
+* N/A
 
 ## Planned Features
 * N/A
