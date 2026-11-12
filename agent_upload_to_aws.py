@@ -7,7 +7,7 @@ from datetime import datetime, timezone
 from awscrt import mqtt
 from awsiot import mqtt_connection_builder
 
-BASE = Path("/home/jayn/IOT-Lab")
+BASE = Path(__file__).resolve().parent
 
 ENDPOINT = "a5dj4rsnqwl8l-ats.iot.us-east-1.amazonaws.com"
 TOPIC = "ee4201/sensors"
@@ -15,7 +15,6 @@ CLIENT_ID = "ee4201-aws-uploader"
 DEVICE_ID = "pi1"
 
 DATA_FILE = BASE / "data.json"
-STATE_FILE = BASE / ".aws_upload_state.json"
 
 CERT = "certs/6968cbdf94ae232878a26cbe2fe615498419429e23f002827f1e9c29ec838beb-certificate.pem.crt"
 KEY = "certs/6968cbdf94ae232878a26cbe2fe615498419429e23f002827f1e9c29ec838beb-private.pem.key"
@@ -31,7 +30,6 @@ def load_json(path, default):
 
 def upload_databases():
     data = load_json(DATA_FILE, {})
-    synced = set(load_json(STATE_FILE, []))
 
     connection = mqtt_connection_builder.mtls_from_path(
         endpoint=ENDPOINT,
@@ -63,25 +61,26 @@ def upload_databases():
                 timestamp = (
                     record.get("timestamp")
                     or record.get("TIMESTAMP")
-                    or datetime.now(timezone.utc).isoformat()
+                    or datetime.now().isoformat()
                 )
 
                 # Unique, repeatable identifier for sync tracking.
                 sync_id = f"{table_name}:{record_id}"
-                if sync_id in synced:
-                    skipped += 1
-                    continue
+                # if sync_id in synced:
+                    # skipped += 1
+                    # continue
 
                 # Preserve the original sensor/camera attributes.
                 payload = dict(record)
                 payload["device_id"] = device_id
-                payload["timestamp"] = str(timestamp)
+                payload["upload_timestamp"] = str(timestamp)
+                payload["timestamp"] = payload["upload_timestamp"] # for DynamoDB key
                 payload["record_type"] = table_name
                 payload["tinydb_id"] = str(record_id)
 
                 # Prevent timestamp-key collisions for records
                 # from the same table and device.
-                payload["timestamp"] += f"#{record_id}"
+                payload["upload_timestamp"] += f"#{record_id}"
 
                 message = json.dumps(payload)
 
@@ -94,10 +93,10 @@ def upload_databases():
                 # Wait for AWS IoT to acknowledge the publish.
                 future.result(timeout=30)
 
-                synced.add(sync_id)
-                STATE_FILE.write_text(
-                    json.dumps(sorted(synced), indent=2)
-                )
+                # synced.add(sync_id)
+                # STATE_FILE.write_text(
+                    # json.dumps(sorted(synced), indent=2)
+                # )
 
                 uploaded += 1
                 print(f"Published {sync_id}")
@@ -105,7 +104,6 @@ def upload_databases():
         return {
             "STATUS": "mqtt_published",
             "UPLOADED": uploaded,
-            "SKIPPED": skipped,
             "UPLOAD_TIMESTAMP": datetime.now().isoformat()
         }
 
