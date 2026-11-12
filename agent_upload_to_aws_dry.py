@@ -25,10 +25,10 @@ def prepare_records():
             payload = dict(record)
 
             payload["device_id"] = f"{DEVICE_ID}:{table_name}"
-            payload["timestamp"] = (
+            payload["upload_timestamp"] = (
                 str(record.get("timestamp"))
                 if record.get("timestamp")
-                else datetime.now(timezone.utc).isoformat()
+                else datetime.now().isoformat()
             ) + f"#{record_id}"
 
             payload["record_type"] = table_name
