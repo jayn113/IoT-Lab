@@ -8,7 +8,8 @@ from agent_tools import (
     cam_record_video
 )
 
-from agent_upload_to_aws_dry import upload_to_cloud # dry test
+from agent_upload_to_aws import upload_databases
+# from agent_upload_to_aws_dry import upload_to_cloud # dry test
 
 
 # Define available tools
@@ -105,7 +106,7 @@ def upload_to_aws() -> str:
 			OUTPUT_FILE name, and TIMESTAMP
 	"""
 	
-	return upload_to_cloud(True)
+	return upload_databases()
 
 
 available_tools = {
@@ -249,8 +250,7 @@ while True:
         "content": user_input
     })
 
-    # Force tool call "read_light()" when user explicitly asks
-    # for current sensor values for deterministic results
+    # Force "read_light()" when user asks current sensor values
     if asks_for_current_sensor(user_input):
 
         result = read_light()
@@ -270,8 +270,7 @@ while True:
 
         print("\nAgent:", response.message.content)
 
-    # Force tool call "latest_sensor_reading()" when user explicitly asks
-    # for database values for deterministic results
+    # Force "latest_sensor_reading()" when user for sensor database
     elif asks_for_sensor_database(user_input):
 
         result = latest_sensor_reading()
@@ -291,8 +290,7 @@ while True:
 
         print("\nAgent:", response.message.content)
 
-    # Force tool call "latest_camera_metadata()" when user explicitly asks
-    # for database values for deterministic results
+    # Force "latest_camera_metadata()" when user asks for camera database
     elif asks_for_camera_database(user_input):
 
         result = latest_camera_metadata()
