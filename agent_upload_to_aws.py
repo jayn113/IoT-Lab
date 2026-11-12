@@ -7,9 +7,9 @@ from datetime import datetime, timezone
 from awscrt import mqtt
 from awsiot import mqtt_connection_builder
 
-BASE = Path("/home/jayn/IOT-Lab").resolve().parent
+BASE = Path("/home/jayn/IOT-Lab")
 
-ENDPOINT = "a3c8u82riksvor-ats.iot.us-east-1.amazonaws.com"
+ENDPOINT = "a5dj4rsnqwl8l-ats.iot.us-east-1.amazonaws.com"
 TOPIC = "ee4201/sensors"
 CLIENT_ID = "ee4201-aws-uploader"
 DEVICE_ID = "pi1"
@@ -17,8 +17,8 @@ DEVICE_ID = "pi1"
 DATA_FILE = BASE / "data.json"
 STATE_FILE = BASE / ".aws_upload_state.json"
 
-CERT = "certs/e5eee297c12f6abdf1622680a4de2be4cb250ad7a370938b97be2686fe087495-certificate.pem.crt"
-KEY = "certs/e5eee297c12f6abdf1622680a4de2be4cb250ad7a370938b97be2686fe087495-private.pem.key"
+CERT = "certs/6968cbdf94ae232878a26cbe2fe615498419429e23f002827f1e9c29ec838beb-certificate.pem.crt"
+KEY = "certs/6968cbdf94ae232878a26cbe2fe615498419429e23f002827f1e9c29ec838beb-private.pem.key"
 CA = "certs/AmazonRootCA1.pem"
 
 
